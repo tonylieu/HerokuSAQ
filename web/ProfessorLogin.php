@@ -62,7 +62,7 @@ body {background-image: url('GreenBackground.jpg');
  <input type="text" name="pass" placeholder="Password"><br>
 <input type="submit">
 </form>
-<a href='LoginPage.html' class = "block">Go Back</button></a>
+<a href='LoginPage.php' class = "block">Go Back</button></a>
 
 </body>
 </html>

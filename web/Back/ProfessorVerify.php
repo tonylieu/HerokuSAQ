@@ -19,13 +19,14 @@ $PassCheck = $pdo->prepare($sqlPass);
 $PassCheck->execute();
 $LastName = $pdo->prepare($sqlLName);
 $LastName->execute();
-$LName = $LastName->fetch(PDO::FETCH_ASSOC);
+$LName = $LastName->fetchAll();
 $IDrowcount = $IDcheck->rowcount();
 $passrowcount = $PassCheck->rowcount();
 if($IDrowcount > 0 && $passrowcount > 0){
 		$_SESSION["ProfessorID"] = $name;
 		$_SESSION["Password"] = $Pass;
-		$_SESSION["PLastName"] = $LName['ProfessorNameL'];
+		$ProfessorL = $LName['ProfessorNameL'];
+		$_SESSION["PLastName"] = $ProfessorL;
 		header("location: ../ProfessorModel.php");
 }
 else{

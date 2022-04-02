@@ -80,27 +80,18 @@ body {
   </div>
   </div>
   <?Php
-  //this is a query to make sure the quiz table is not empty
-  $numQuizzes = "SELECT COUNT(quizid) FROM quiz";
-  $countCheck = $pdo->prepare($numQuizzes);
-  $countCheck->execute();
-  function addQuiz() {
-    if ($countCheck > 0) {
-      $sqlQuiz = "INSERT INTO quiz VALUES ($countCheck + 1, 0, 0)";
-      $newQuiz = $pdo->prepare($sqlQuiz);
-      $newQuiz->execute();
-    } else {
-      $sqlQuiz = "INSERT INTO quiz VALUES (1, 0, 0)";
-      $newQuiz = $pdo->prepare($sqlQuiz);
-      $newQuiz->execute();
-    }
-  }
+
 	//this is a query to get all the current quizzes in the database
-	$sqlQuizzes = "SELECT quizid FROM quiz";
+
+  $sqlQuizzes = "SELECT quizid FROM quiz";
+  $Quizzes = $pdo->prepare($sqlQuizzes);
+  $Quizzes->execute();
+  $rowcount = $Quizzes->rowcount();
+  $result = $Quizzes->fetchALL();
+
 	//this is to create cards for each quiz
-	if ($countCheck > 0) {
-    $result = $pdo->prepare($sqlQuizzes);
-    $result->execute();
+
+	if ($rowcount->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
        //this will create a card for every row in the database	
@@ -118,6 +109,8 @@ body {
 	    echo '<p> &nbsp;&nbsp;&nbsp;</p>';
 	  }
   }
+  echo '<div id="result">';
+  echo '</div>';
   
   ?>
 </h2>
@@ -125,8 +118,11 @@ body {
 <script>
   let btn = document.getElementById("addQuiz");
   btn.addEventListener("click", function() {
-    fetch("saq-trailrun.herokuapp.com/addQuiz.php", {
+    fetch("addQuiz.php", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+      },
     })
     .then((response) => response.text())
     .then((res) => (document.getElementById("result").innerHTML = res));

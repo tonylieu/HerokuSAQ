@@ -1,7 +1,7 @@
-<!DOCTYPE html>
- <?php session_start(); ?>
+ <?php session_start(); ?> 
  <?php
- include 'DatabaseAccess.php';
+ include 'Back/DatabaseAccess.php';
+ include 'Back/Attendance.php';
 ?> 
 <html>
 <head>
@@ -65,7 +65,12 @@ body {
 </div>
 
 <div class="main">
-  <h2>Welcome</h2>
+  <h2>Welcome
+  <?Php
+  $sqlName = $_SESSION["StudentID"]." ";
+  $name = $sqlName;
+   print $name; 
+?></h2>
  <button onclick="Hello()" class = "block">Im here</button>
 </div>  
 </body>

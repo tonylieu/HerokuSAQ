@@ -80,7 +80,7 @@ body {
 ?>
 <?Php 
 	//this are query to get the student name
-	$sqlStudent = "SELECT studentFname, studentLname, studentID, Attendance FROM Student";
+	$sqlStudent = "SELECT StudentFname, StudentLname, StudentID, Attendence FROM Student";
 	$Student = $pdo->prepare($sqlStudent);
 	$Student->execute();
 	$rowCount = $Student->rowcount();
@@ -90,10 +90,10 @@ body {
     // output data of each row
     while($result = $result->fetchALL()) {
        //thsi will create a card for every row in the database	
-	   if($result["Attendance"] == 1){
-	echo '<div class="card bg-success text-white" style="width: 18rem; id = "'.$result["studentID"].'">';
+	   if($result["Attendence"] == 1){
+	echo '<div class="card bg-success text-white" style="width: 18rem; id = "'.$result["StudentID"].'">';
 	echo '<div class= "card-body">';
-	print $result["studentFname"]." ".$result["studentLname"]." ".$result["studentID"];
+	print $result["StudentFname"]." ".$result["StudentLname"]." ".$result["StudentID"];
 	echo '</div>';
 	echo '</div>';
 	echo '<p> &nbsp;&nbsp;&nbsp;</p>';

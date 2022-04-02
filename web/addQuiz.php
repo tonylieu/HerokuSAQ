@@ -1,11 +1,13 @@
-<?Php
+<?Php session_start();
   include 'Back/DatabaseAccess.php';
   //this is a query to make sure the quiz table is not empty
-  $numQuizzes = "SELECT COUNT(quizid) FROM quiz";
-  $countCheck = $pdo->prepare($numQuizzes);
-  $countCheck->execute();
-  if ($countCheck > 0) {
-    $sqlQuiz = "INSERT INTO quiz VALUES ($countCheck + 1, 0, 0)";
+  $sqlQuizzes = "SELECT quizid FROM quiz";
+  $Quizzes = $pdo->prepare($sqlQuizzes);
+  $Quizzes->execute();
+  $rowcount = $Quizzes->rowcount();
+  $result = $Quizzes->fetchALL();
+  if ($rowcount->num_rows > 0) {
+    $sqlQuiz = "INSERT INTO quiz VALUES ($num_rows + 1, 0, 0)";
     $newQuiz = $pdo->prepare($sqlQuiz);
     $newQuiz->execute();
   } else {
